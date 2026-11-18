@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import json,hashlib,collections,csv,statistics,re
+import json,hashlib,collections,csv,statistics,re,os
 import numpy as np
 import matplotlib;matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-B=Path(__file__).resolve().parent;RAW=B/'results/raw';OUT=B/'results/derived';FIG=B/'manuscript/figures'
-OUT.mkdir(exist_ok=True);FIG.mkdir(exist_ok=True)
+B=Path(__file__).resolve().parent;RAW=B/'results/raw';OUT=B/'results/derived';FIG=B/'results/derived/figures-original'  # original-collection figures; the manuscript figures come from revision/report.py
+OUT.mkdir(exist_ok=True);FIG.mkdir(parents=True,exist_ok=True)
 read=lambda p:[json.loads(x) for x in p.read_text().splitlines() if x.strip()]
 collections_log=read(RAW/'collections.jsonl');accepted=[x['collection'] for x in collections_log if x['status']=='accepted']
 if not accepted:raise RuntimeError('No fully accepted guarded collection')
@@ -154,13 +154,19 @@ extv=B/'extensions/results/derived/ext-values.json'
 if extv.exists():
  for k,v in json.loads(extv.read_text()).items():
   if isinstance(v,(str,int,float)):sub[k]=v
-(OUT/'manuscript-values.json').write_text(json.dumps(sub,indent=2)+'\n')
-if (B/'manuscript/paper.template.md').exists():
- source=(B/'manuscript/paper.template.md').read_text()
- for k,v in sub.items():
-  if isinstance(v,(str,int,float)):source=source.replace('{{'+k+'}}',str(v))
- assert '{{' not in source
- (B/'manuscript/paper.md').write_text(source)
+revv=B/'revision/results/derived/rev-values.json'
+if revv.exists():sub.update(json.loads(revv.read_text()))
+sub['artifact_doi']=os.environ.get('ARTIFACT_DOI','https://doi.org/10.5281/zenodo.23603487')
+(OUT/'manuscript-values.json').write_text(json.dumps({k:v for k,v in sub.items() if not k.startswith('supp_')},indent=2)+'\n')
+for name in ['paper','supplement']:
+ t=B/f'manuscript/{name}.template.md'
+ if t.exists():
+  source=t.read_text()
+  for k,v in sub.items():
+   if isinstance(v,(str,int,float)):source=source.replace('{{'+k+'}}',str(v))
+  missing=sorted(set(re.findall(r'\{\{(\w+)\}\}',source)))
+  assert not missing,(name,missing)
+  (B/f'manuscript/{name}.md').write_text(source)
 sha={str(p.relative_to(B)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(RAW.glob('*')) if p.is_file()};(OUT/'raw-sha256.json').write_text(json.dumps(sha,indent=2)+'\n')
 print(f'PASS: collection {collection}; {len(trials)} trials; {len(audits)} request audits; {len(summary)} cells; {len(plans)} query plans.')
 print(json.dumps({k:sub[k] for k in ['global_offset','grouped_offset','lateral_offset','global_keyset','lateral_keyset']},indent=2))

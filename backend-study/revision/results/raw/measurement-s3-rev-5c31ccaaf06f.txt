@@ -1,0 +1,8 @@
+{"session":3,"completed":1,"total":1560}
+{"session":3,"completed":201,"total":1560}
+{"session":3,"completed":401,"total":1560}
+{"session":3,"completed":601,"total":1560}
+{"session":3,"completed":801,"total":1560}
+{"session":3,"completed":1001,"total":1560}
+{"session":3,"completed":1201,"total":1560}
+{"session":3,"completed":1401,"total":1560}

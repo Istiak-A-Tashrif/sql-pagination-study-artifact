@@ -1,0 +1,29 @@
+{
+  "collection": "rev-5c31ccaaf06f",
+  "at": "2026-11-18T12:38:28.206302+00:00",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "macos": "27.0.1",
+  "cpu": "Apple M5",
+  "memory_bytes": 17179869184,
+  "logical_cpus": 10,
+  "node": "v22.23.3",
+  "docker": "29.8.2",
+  "vm": "10 8319504384",
+  "sources": {
+    "Dockerfile": "9be9f52f8fda742934c391d626069119892d2fa5858e2437fc1242f14cc918e8",
+    "PROTOCOL.md": "27d50870cd7928c7bf3ef2bca8eae0a5c86f6cc60c1673658e5f869f0f4135f0",
+    "build_manifest.py": "a1890ca9f519e33913cdf06d47cf3b98208d4b0b0d0593ee633786728350120b",
+    "docker-compose.yml": "1131c49a8ccde0571e7ff29b5e07cf70a8fd615abcede3e353f96f6b802e1b9f",
+    "manifest.json": "2f3eaf900a5fe32766c43544404dae9c24a47fca95b9cff48efe71d6c378e3dc",
+    "run.py": "fd3efc0c76584edd56c2c1910a9be1be2cf18ab5c7ae7e3e5f0afc0ec0f33aa6",
+    "runner.mjs": "53b779ceab0013347619820e868757ea4bc70d6b1863c66644aace057bb4ae48",
+    "src/plans.cjs": "0933756217d3ce723e2ba54538a5d6b6583aa5e4e78989a1d89dbb74284da3cc",
+    "src/prepare.cjs": "56a10ed44982a2b6c480f37ca4ca17634794826e54b8a8bcde5dbe2da921af56",
+    "src/queries.cjs": "3baab8bfe45ca6b7ff69cc6fd1b89f4b155fb2918e2bc4f261853916d0c81680",
+    "src/server.cjs": "9312eb8f970f20dc34d3e75340456e1fbdb3143aa7bc1f27066dc9f757d3e718",
+    "src/writecost.cjs": "d94e8c245042f925f73ab60bd7373455e7401772b6fc6556147fddcf8e28ab0d"
+  },
+  "dump_sha256": "4b1b76bd84ec97c8622d415c832776300d0e7fe7ff3ad5d487265ee90702dbf5",
+  "git_commit": "74634e8b019be59f5343dbe4ae7d2a810d1bf801",
+  "plan_reps_per_session": 3
+}
